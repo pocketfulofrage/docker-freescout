@@ -61,13 +61,13 @@ RUN set -x && \
 ### Cleanup
     rm -rf /usr/src/* /var/tmp/* /var/cache/apk/*
 ### Permissions
-    chgrp -R www-data /www/html/storage /www/html/bootstrap/cache /www/html/public/css/builds /www/html/public/js/builds
-    chmod -R ug+rwx /www/html/storage /www/html/bootstrap/cache /www/html/public/css/builds /www/html/public/js/builds
+    /bin/chgrp -R www-data /www/html/storage /www/html/bootstrap/cache /www/html/public/css/builds /www/html/public/js/builds
+    /bin/chmod -R ug+rwx /www/html/storage /www/html/bootstrap/cache /www/html/public/css/builds /www/html/public/js/builds
 ### Add entry to crontab
-	crontab -l > tmpcron
-	echo "* * * * * php /var/www/html/artisan schedule:run >> /dev/null 2>&1" >> tmpcron
-	crontab tmpcron
-	rm tmpcron
+    /usr/bin/crontab -l > tmpcron
+    echo "* * * * * php /var/www/html/artisan schedule:run >> /dev/null 2>&1" >> tmpcron
+    /usr/bin/crontab tmpcron
+    rm tmpcron
 
 ENV LD_PRELOAD /usr/lib/preloadable_libiconv.so php7
 
