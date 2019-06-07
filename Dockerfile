@@ -60,6 +60,11 @@ RUN set -x && \
     \
 ### Cleanup
     rm -rf /usr/src/* /var/tmp/* /var/cache/apk/*
+### Permissions
+    chgrp -R www-data /www/html/storage /www/html/bootstrap/cache /www/html/public/css/builds /www/html/public/js/builds
+    chmod -R ug+rwx /www/html/storage /www/html/bootstrap/cache /www/html/public/css/builds /www/html/public/js/builds
+### Add crontab
+    crontab /www/logs/freescout.crontab
 
 ENV LD_PRELOAD /usr/lib/preloadable_libiconv.so php7
 
