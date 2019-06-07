@@ -1,0 +1,84 @@
+version: '2'
+
+services:
+
+  freescout-app:
+    image: pocketfulofrage/freescout
+    container_name: freescout
+    links:
+    - freescout-db
+    volumes:
+    - ./logs/:/www/logs
+    
+    # workaround for Gmail SSL verification
+    - ./fixes/Client.php:/www/html/vendor/webklex/laravel-imap/src/IMAP/Client.php
+
+    environment:
+    - VIRTUAL_HOST=<FQDN>
+    - VIRTUAL_NETWORK=<network>
+    - VIRTUAL_PORT=80
+    - APP_FORCE_HTTPS=true
+    - DB_HOST=<database server>
+    - DB_NAME=<database name>
+    - DB_USER=<database user>
+    - DB_PASS=<database pass>
+
+    - SITE_URL=https://<FQDN>
+    - ADMIN_EMAIL=<email>
+    - ADMIN_PASS=<pass>
+    - ENABLE_SSL_PROXY=FALSE
+    - DISPLAY_ERRORS=FALSE
+    - TIMEZONE=America/New_York
+    networks:
+      - traefik_proxy
+    restart: always
+    labels:
+      - "traefik.frontend.rule=Host:<FQDN>"
+      - "traefik.docker.network=<network>"
+      - "traefik.port=80"
+      - "traefik.enable=true"
+      - "traefik.passHostHeader=true"
+
+  freescout-db:
+    image: tiredofit/mariadb
+    container_name: freescout-db
+    volumes:
+      - ./db:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=<pass>
+      - MYSQL_DATABASE=<database name>
+      - MYSQL_USER=<database user>
+      - MYSQL_PASSWORD=<database pass>
+
+      - ZABBIX_HOSTNAME=freescout-db
+
+    networks:
+      - traefik_proxy
+    restart: always
+
+  freescout-db-backup:
+    container_name: freescout-db-backup
+    image: tiredofit/db-backup
+    links:
+     - freescout-db
+    volumes:
+      - ./dbbackup:/backup
+    environment:
+      - ZABBIX_HOSTNAME=freescout-db-backup
+      - DB_HOST=<database server>
+      - DB_TYPE=mariadb
+      - DB_NAME=<database name>
+      - DB_USER=<database user>
+      - DB_PASS=<database pass>
+      - DB_DUMP_FREQ=1440
+      - DB_DUMP_BEGIN=0000
+      - DB_CLEANUP_TIME=8640
+      - COMPRESSION=BZ
+      - MD5=TRUE
+    networks:
+      - <network>
+    restart: always
+
+networks:
+  <network>:
+    external: true
