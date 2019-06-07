@@ -28,6 +28,7 @@ RUN set -x && \
             php7-iconv \
             php7-imap \
             php7-json \
+	    php7-ldap \
             php7-mbstring \
             php7-mysqli \
             php7-opcache \
