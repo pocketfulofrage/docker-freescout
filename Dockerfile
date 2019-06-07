@@ -58,8 +58,6 @@ RUN set -x && \
     curl -sSL https://github.com/freescout-helpdesk/freescout/archive/${FREESCOUT_VERSION}.tar.gz | tar xvfz - --strip 1 -C /www/html && \
     chown -R nginx:www-data /www/html && \
     \
-### Cleanup
-    rm -rf /usr/src/* /var/tmp/* /var/cache/apk/* \
 ### Permissions
     /bin/chgrp -R www-data /www/html/storage /www/html/bootstrap/cache /www/html/public/css/builds /www/html/public/js/builds \
     /bin/chmod -R ug+rwx /www/html/storage /www/html/bootstrap/cache /www/html/public/css/builds /www/html/public/js/builds \
@@ -67,7 +65,9 @@ RUN set -x && \
     /usr/bin/crontab -l > tmpcron \
     echo "* * * * * php /var/www/html/artisan schedule:run >> /dev/null 2>&1" >> tmpcron \
     /usr/bin/crontab tmpcron \
-    rm tmpcron
+    rm -rf tmpcron \
+### Cleanup
+    rm -rf /usr/src/* /var/tmp/* /var/cache/apk/* 
 
 ENV LD_PRELOAD /usr/lib/preloadable_libiconv.so php7
 
