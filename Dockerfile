@@ -63,8 +63,11 @@ RUN set -x && \
 ### Permissions
     chgrp -R www-data /www/html/storage /www/html/bootstrap/cache /www/html/public/css/builds /www/html/public/js/builds
     chmod -R ug+rwx /www/html/storage /www/html/bootstrap/cache /www/html/public/css/builds /www/html/public/js/builds
-### Add crontab
-    crontab /www/logs/freescout.crontab
+### Add entry to crontab
+	crontab -l > tmpcron
+	echo "* * * * * php /var/www/html/artisan schedule:run >> /dev/null 2>&1" >> tmpcron
+	crontab tmpcron
+	rm tmpcron
 
 ENV LD_PRELOAD /usr/lib/preloadable_libiconv.so php7
 
