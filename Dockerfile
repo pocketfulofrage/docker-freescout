@@ -59,8 +59,14 @@ RUN set -x && \
     chown -R nginx:www-data /www/html && \
     \
 ### Permissions
-    chgrp -R www-data /www/html/storage /www/html/bootstrap/cache /www/html/public/css/builds /www/html/public/js/builds \
-    chmod -R ug+rwx /www/html/storage /www/html/bootstrap/cache /www/html/public/css/builds /www/html/public/js/builds \
+    chgrp -R www-data /www/html/storage \
+    chgrp -R www-data /www/html/bootstrap/cache \
+    chgrp -R www-data /www/html/public/css/builds \
+    chgrp -R www-data /www/html/public/js/builds \
+    chmod -R ug+rwx /www/html/storage \
+    chmod -R ug+rwx /www/html/bootstrap/cache \
+    chmod -R ug+rwx /www/html/public/css/builds \
+    chmod -R ug+rwx /www/html/public/js/builds \
     \
 ### Add entry to crontab
     echo "* * * * * sudo -u nginx LD_PRELOAD=/usr/lib/preloadable_libiconv.so php /www/html/artisan schedule:run >> /dev/null 2>&1" > tmpcron \
