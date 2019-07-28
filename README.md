@@ -1,11 +1,9 @@
 
-# hub.docker.com/r/tiredofit/freescout
+# hub.docker.com/r/pocketfulofrage/freescout
 
-[![Build Status](https://img.shields.io/docker/build/tiredofit/freescout.svg)](https://hub.docker.com/r/tiredofit/freescout)
-[![Docker Pulls](https://img.shields.io/docker/pulls/tiredofit/freescout.svg)](https://hub.docker.com/r/tiredofit/freescout)
-[![Docker Stars](https://img.shields.io/docker/stars/tiredofit/freescout.svg)](https://hub.docker.com/r/tiredofit/freescout)
-[![Docker Layers](https://images.microbadger.com/badges/image/tiredofit/freescout.svg)](https://microbadger.com/images/tiredofit/freescout)
-
+[![Build Status](https://img.shields.io/docker/cloud/automated/pocketfulofrage/freescout)](https://hub.docker.com/r/pocketfulofrage/freescout)
+[![Docker Pulls](https://img.shields.io/docker/pulls/pocketfulofrage/freescout.svg)](https://hub.docker.com/r/pocketfulofrage/freescout)
+[![Docker Stars](https://img.shields.io/docker/stars/pocketfulofrage/freescout.svg)](https://hub.docker.com/r/pocketfulofrage/freescout)
 
 # Introduction
 
@@ -21,6 +19,7 @@ This Container uses [tiredofit/alpine:3.8](https://hub.docker.com/r/tiredofit/al
 # Authors
 
 - [Dave Conroy](https://github.com/tiredofit)
+- [Russ Bryan](https://github.com/pocketfulofrage)
 
 # Table of Contents
 
