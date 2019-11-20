@@ -1,7 +1,7 @@
 FROM tiredofit/alpine:edge
 
 ### Set Defaults
-ENV FREESCOUT_VERSION=1.3.10
+ENV FREESCOUT_VERSION=1.3.11
 
 ### Perform Installation
 RUN set -x && \
